@@ -2,10 +2,12 @@ from langchain.prompts.prompt import PromptTemplate
 from retry import retry
 from timeit import default_timer as timer
 import streamlit as st
-from langchain_openai import OpenAIEmbeddings, ChatOpenAI
+from langchain_openai import OpenAIEmbeddings, ChatOpenAI, AzureOpenAIEmbeddings
 from neo4j_driver import run_query
 from json import loads, dumps
 
+azure_openai_deployment = st.secrets["AZURE_OPENAI_DEPLOYMENT"]
+azure_openai_emb_deployment = st.secrets["AZURE_OPENAI_EMB_DEPLOYMENT"]
 
 PROMPT_TEMPLATE = """Human: You are a product and retail expert who can answer questions based only on the context below.
 * Answer the question STRICTLY based on the context provided in JSON below.
@@ -28,7 +30,11 @@ PROMPT = PromptTemplate(
     input_variables=["input", "context"], template=PROMPT_TEMPLATE
 )
 
-EMBEDDING_MODEL = OpenAIEmbeddings(model="text-embedding-ada-002")
+EMBEDDING_MODEL = AzureOpenAIEmbeddings(
+    azure_deployment=azure_openai_emb_deployment,
+    openai_api_version="2023-05-15",
+)
+#OpenAIEmbeddings(model="text-embedding-ada-002")
 
 
 def vector_graph_qa(query):

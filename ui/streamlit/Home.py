@@ -25,18 +25,21 @@ def rag_vg(question):
     st.markdown(res['result'])
 
 
-question = st.text_input("Ask a question on Northwind data", value="")
+question = st.text_input("Ask a question about Northwind products", value="")
 
 col1, col2 = st.columns(2)
 with col1:
     st.markdown("### Vector Only approach")
     with st.expander("Retrieves documents. May not include full context:"):
-        vec_only = Image.open('./images/vector-only.png')
-        st.markdown("#### Relationships are ignored. So, lesser context")
-        st.image(vec_only)
+
         v = Image.open('./images/vector-only1.png')
-        st.markdown("#### Sample Doc Chunk")
+        st.markdown("#### Sample Document")
         st.image(v)
+        vec_only = Image.open('./images/vector-only.png')
+        st.markdown("#### Sample Result With Relationships Ignored")
+        st.image(vec_only)
+
+
 with col2:
     st.markdown("### Vector + Graph approach (GraphRAG)")
     with st.expander("Retrieves documents, relationships, and connected entities. Has full context:"):
@@ -44,7 +47,7 @@ with col2:
         st.markdown("#### Relationships make this context-rich")
         st.image(schema)
         vg = Image.open('./images/vector-graph.png')
-        st.markdown("#### Sample Doc Chunk")
+        st.markdown("#### Sample Result With Relationships")
         st.image(vg)
 
 if question:

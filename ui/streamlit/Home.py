@@ -44,7 +44,7 @@ with col2:
     st.markdown("### Vector + Graph approach (GraphRAG)")
     with st.expander("Retrieves documents, relationships, and connected entities. Has full context:"):
         schema = Image.open('./images/schema.png')
-        st.markdown("#### Relationships make this context-rich")
+        st.markdown("#### Relationships Provide Rich Context")
         st.image(schema)
         vg = Image.open('./images/vector-graph.png')
         st.markdown("#### Sample Result With Relationships")
